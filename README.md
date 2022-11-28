@@ -36,7 +36,7 @@ Things you may want to cover:
 | first_name         | string | null: false               |
 | last_name_kana     | string | null: false               |
 | first_name_kana    | string | null: false               |
-| birth*date*        | date   | null: false               |
+| birth              | date   | null: false               |
 
 - has_many :items
 - has_many :orders
