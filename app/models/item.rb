@@ -2,14 +2,24 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
   extend ActiveHash::Associations::ActiveRecordExtensions
-  validates :image, presence: true
-  validates :name,        presence: true
-  validates :nickname,        presence: true
-  validates :info,        presence: true
-  validates :nickname,        presence: true
-  validates :category_id ,        presence: true
-  validates :sales_status_id,        presence: true
-  validates :shipping_fee_status_id,        presence: true
-  validates :prefecture_id,        presence: true
-  validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}, presence: true
+  belongs_to :category
+  belongs_to :sales_status
+  belongs_to :shipping_fee_status
+  belongs_to :scheduled_delivery
+  belongs_to :prefecture
+  with_options presence: true do
+    validates :name
+    validates :info
+    validates :image
+  end
+  validates :price, numericality: { with: /\A[0-9]+\z/, message: 'Half-width number' }
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'Out of setting range' }
+
+  with_options presence: true, numericality: { other_than: 1, message: 'Select'} do
+    validates :category_id
+    validates :sales_status_id
+    validates :shipping_fee_status_id
+    validates :prefecture_id
+    validates :scheduled_delivery_id
+  end
 end

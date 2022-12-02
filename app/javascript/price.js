@@ -1,10 +1,14 @@
-document.addEventListener("turbolinks:load", function () {
-  $("#item_price").on("keyup", function () {
-    console.log("ok");
-    let price = $(this).val();
-    let fee = Math.round(price * 0.1);
-    let profit = price - fee;
-    $("#fee").text(fee);
-    $("#profit").text(profit);
+window.addEventListener("load", () => {
+  const priceInput = document.getElementById("item-price");
+  //  console.log(priceInput)
+  priceInput.addEventListener("input", () => {
+    const addTaxDom = document.getElementById("add-tax-price");
+    // console.log(priceInput.innerHTML);
+    addTaxDom.innerHTML = Math.round(priceInput.value * 0.1);
+    const addPofitDom = document.getElementById("profit");
+    // console.log(priceInput.innerHTML);
+    addPofitDom.innerHTML = Math.round(
+      priceInput.value - Math.round(priceInput.value * 0.1)
+    );
   });
 });
