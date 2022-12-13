@@ -1,5 +1,8 @@
 FactoryBot.define do
   factory :item do
+    after(:build) do |item|
+      item.image.attach(io: File.open('public/images/サンプル画像.png'), filename: 'サンプル画像.png')
+    end
     name { Faker::Lorem.sentence }
     info { Faker::Lorem.sentence }
     association :user
