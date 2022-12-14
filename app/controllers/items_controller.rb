@@ -39,8 +39,8 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-      @item.destroy
-      redirect_to root_path
+    @item.destroy
+    redirect_to root_path
   end
 
   private
@@ -55,8 +55,8 @@ class ItemsController < ApplicationController
   end
 
   def prevent_url
-    if @item.user_id != current_user.id || @item.order.present?
-        redirect_to root_path
-    end
+    return unless @item.user_id != current_user.id || @item.order.present?
+
+    redirect_to root_path
   end
 end
